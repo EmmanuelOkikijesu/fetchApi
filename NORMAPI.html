@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #papa {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      #box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: black 2px dashed;
+        border-radius: 8px;
+        flex-direction: column;
+        width: auto;
+        padding-top: 10px;
+      }
+
+      #imgg {
+        border-radius: 100%;
+      }
+      .content {
+        padding: 10px;
+        justify-content: space-evenly;
+      }
+
+      .holder {
+        display: flex;
+        justify-content: space-between;
+        /* align-items: center; */
+        /* width: 100%; */
+      }
+      h3 {
+        margin-right: 10px;
+      }
+      p {
+        margin-top: 20px;
+      }
+      button {
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        background-color: blueviolet;
+        margin: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="papa">
+      <button id="load">Reload</button>
+
+      <div id="box">
+        <img
+          id="imgg"
+          src="https://randomuser.me/api/portraits/men/70.jpg"
+          alt="ima"
+        />
+
+        <div class="content">
+          <div class="holder">
+            <h3>Email:</h3>
+            <p id="email">hjhehe@gmail.com</p>
+          </div>
+          <div class="holder">
+            <h3>phone:</h3>
+            <p id="phone">hjhehe@gmail.com</p>
+          </div>
+          <div class="holder">
+            <h3>Gender:</h3>
+            <p id="gender">hjhehe@gmail.com</p>
+          </div>
+          <div class="holder">
+            <h3>Name:</h3>
+            <p id="Name">hjhehe@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let imgg = document.getElementById("imgg");
+      let phone = document.getElementById("phone");
+      let name = document.getElementById("Name");
+      let email = document.getElementById("email");
+      let reloader = document.getElementById("load");
+
+    
+    
+
+      reloader.addEventListener("click", function () {
+        fetch("https://randomuser.me/api/", {
+          mode: "cors",
+          method: "GET",
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            let newUser = data.results;
+            for (let i = 0; i < newUser.length; i++) {
+              let result = newUser[i];
+              imgg.src = result.picture.large;
+              email.textContent = result.email;
+              phone.textContent = result.phone;
+              name.textContent =result.name.title +" " + result.name.first + " " +  result.name.last;
+            }
+          });
+      });
+
+  
+    </script>
+  </body>
+</html>
